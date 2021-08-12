@@ -1,3 +1,54 @@
+wget https://apache.uib.no/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
+
+tar -xzvf spark-3.1.2-bin-hadoop3.2.tgz
+
+rm spark-3.1.2-bin-hadoop3.2.tgz
+
+mv spark-3.1.2-bin-hadoop3.2 spark
+
+# Set SPARK_HOME to extracted directory
+SPARK_HOME=`pwd`/spark-3.1.2-bin-hadoop3.2
+
+
+#test that you have the right spark home folder
+
+
+cd ${SPARK_HOME}
+pwd
+/home/bjorn/jlpyk8s/spark
+
+
+
+cp PyDockerfile spark/
+
+
+
+
+docker build -t bjornjorgensen/spark-notebook:spark-3.1.2-hadoop-3.2 -f PyDockerfile .
+
+
+
+docker push bjornjorgensen/spark-notebook:spark-3.1.2-hadoop-3.2
+
+
+spark-3.1.2-hadoop-3.2: digest
+
+
+cp Dockerfile.driver spark/
+cp pysetup.sh spark/bin/
+
+
+./bin/docker-image-tool.sh  -r bjornjorgensen -t v3.2.1 -b java_image_tag=11-jre-slim -p Dockerfile.driver build
+
+docker push bjornjorgensen/spark-py:v3.2.1
+v3.2.1: digest
+
+helm install my-pyspark-notebook charts/pyspark-notebook
+
+
+
+
+
 # Spark, Jupyter Notebook, And HDFS On Kubernetes
 
 ## Motivation

@@ -1,4 +1,5 @@
-FROM jupyterhub/k8s-singleuser-sample:1.1.2
+#https://hub.docker.com/r/jupyterhub/k8s-singleuser-sample/tags?page=1&ordering=last_updated
+FROM jupyterhub/k8s-singleuser-sample:1.1.2-n007.h82352314
 
 # Switch to root to install stuff
 USER root
@@ -9,9 +10,9 @@ ENV MAKEFLAGS -j 4
 
 RUN set -eux; \
     apt-get update && \
-    apt-get install -yq graphviz git build-essential cmake && \
+    apt-get -y upgrade && \
     ln -s /lib /lib64 && \
-    apt install -y bash libc6 libpam-modules krb5-user tini libnss3 procps ca-certificates p11-kit wget && \
+    apt install -y bash libc6 libpam-modules krb5-user tini libnss3 ca-certificates wget p11-kit && \
     mkdir -p /opt/spark && \
     mkdir -p /opt/spark/examples && \
     mkdir -p /opt/spark/work-dir && \
@@ -23,7 +24,7 @@ RUN set -eux; \
     conda install -c conda-forge --yes mamba && \
     mamba install --yes python && \
     pip install --upgrade pip setuptools && \
-    mamba install --yes pandas cytoolz numba lz4 scikit-build python-blosc=1.9.2 && \
+    mamba install --yes pandas cytoolz numba lz4 scikit-build python-blosc koalas && \
     (mamba install --yes pyarrow ||  pip install -vvv pyarrow) && \
     apt-get clean && \
     rm -rf /var/cache/apt/* && \
@@ -133,6 +134,8 @@ RUN set -eux; \
 	java --version
 
 
+
+
 # Based on the Spark dockerfile
 
 COPY jars /opt/spark/jars
@@ -163,13 +166,13 @@ COPY python ${SPARK_HOME}/python
 RUN pip install -e ${SPARK_HOME}/python
 
 # Add S3A support
-ADD https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.11.563/aws-java-sdk-bundle-1.11.563.jar ${SPARK_HOME}/jars/
-ADD https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.2.0/hadoop-aws-3.2.0.jar ${SPARK_HOME}/jars/
+ADD https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.9/aws-java-sdk-bundle-1.12.9.jar ${SPARK_HOME}/jars/
+ADD https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.1/hadoop-aws-3.3.1.jar ${SPARK_HOME}/jars/
 
 #tag::iceberg[]
-ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3-runtime/0.11.0/iceberg-spark3-runtime-0.11.0.jar ${SPARK_HOME}/jars/
-ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3-extensions/0.11.0/iceberg-spark3-extensions-0.11.0.jar ${SPARK_HOME}/jars/
-ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3/0.11.0/iceberg-spark3-0.11.0.jar ${SPARK_HOME}/jars/
+ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3-runtime/0.11.1/iceberg-spark3-runtime-0.11.1.jar ${SPARK_HOME}/jars/
+ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3-extensions/0.11.1/iceberg-spark3-extensions-0.11.1.jar ${SPARK_HOME}/jars/
+ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3/0.11.1/iceberg-spark3-0.11.1.jar ${SPARK_HOME}/jars/
 #ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-parquet/0.11.0/iceberg-parquet-0.11.0.jar ${SPARK_HOME}/jars/
 #ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-core/0.11.0/iceberg-core-0.11.0.jar ${SPARK_HOME}/jars/
 #ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-arrow/0.11.0/iceberg-arrow-0.11.0.jar ${SPARK_HOME}/jars/
