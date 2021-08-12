@@ -246,7 +246,7 @@ Create a Spark context (pay attention to code comments):
 import pyspark
 conf = pyspark.SparkConf()
 conf.setMaster("k8s://https://kubernetes.default.svc.cluster.local:443") # K8S is a Spark master. It creates pods with Spark workers, orchestrates those workers and returns final results to the Spark driver.
-conf.set("spark.kubernetes.container.image", "kublr/spark-py:2.4.0-hadoop-2.6") # Worker pods are created from this docker image. If you use another image, specify it instead.
+conf.set("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2.1") # Worker pods are created from this docker image. If you use another image, specify it instead.
 
 # Authentication (required to create worker pods):
 conf.set("spark.kubernetes.authenticate.caCertFile", "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
@@ -378,7 +378,7 @@ Create a Spark session:
 from pyspark.sql import SparkSession
 sparkSession = SparkSession.builder \
     .master("k8s://https://kubernetes.default.svc.cluster.local:443") \
-    .config("spark.kubernetes.container.image", "kublr/spark-py:2.4.0-hadoop-2.6") \
+    .config("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2.1") \
     .config("spark.kubernetes.authenticate.caCertFile", "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt") \
     .config("spark.kubernetes.authenticate.oauthTokenFile", "/var/run/secrets/kubernetes.io/serviceaccount/token") \
     .config("spark.kubernetes.authenticate.driver.serviceAccountName", "my-pyspark-notebook") \
@@ -535,7 +535,7 @@ You created a Spark context and thus Spark workers:
 import pyspark
 conf = pyspark.SparkConf()
 conf.setMaster("k8s://https://kubernetes.default.svc.cluster.local:443")
-conf.set("spark.kubernetes.container.image", "kublr/spark-py:2.4.0-hadoop-2.6")
+conf.set("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2.1")
 
 conf.set("spark.kubernetes.authenticate.caCertFile", "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
 conf.set("spark.kubernetes.authenticate.oauthTokenFile", "/var/run/secrets/kubernetes.io/serviceaccount/token")
@@ -568,7 +568,7 @@ To customize CPU limit, set `spark.kubernetes.executor.limit.cores`:
 import pyspark
 conf = pyspark.SparkConf()
 conf.setMaster("k8s://https://kubernetes.default.svc.cluster.local:443")
-conf.set("spark.kubernetes.container.image", "kublr/spark-py:2.4.0-hadoop-2.6")
+conf.set("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2.1")
 
 conf.set("spark.kubernetes.authenticate.caCertFile", "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
 conf.set("spark.kubernetes.authenticate.oauthTokenFile", "/var/run/secrets/kubernetes.io/serviceaccount/token")
@@ -587,7 +587,7 @@ To customize CPU request, set `spark.kubernetes.executor.request.cores`:
 import pyspark
 conf = pyspark.SparkConf()
 conf.setMaster("k8s://https://kubernetes.default.svc.cluster.local:443")
-conf.set("spark.kubernetes.container.image", "kublr/spark-py:2.4.0-hadoop-2.6")
+conf.set("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2.1")
 
 conf.set("spark.kubernetes.authenticate.caCertFile", "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
 conf.set("spark.kubernetes.authenticate.oauthTokenFile", "/var/run/secrets/kubernetes.io/serviceaccount/token")
@@ -607,7 +607,7 @@ To customize them, set `spark.executor.memory`:
 import pyspark
 conf = pyspark.SparkConf()
 conf.setMaster("k8s://https://kubernetes.default.svc.cluster.local:443")
-conf.set("spark.kubernetes.container.image", "kublr/spark-py:2.4.0-hadoop-2.6")
+conf.set("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2.1")
 
 conf.set("spark.kubernetes.authenticate.caCertFile", "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
 conf.set("spark.kubernetes.authenticate.oauthTokenFile", "/var/run/secrets/kubernetes.io/serviceaccount/token")
@@ -631,7 +631,7 @@ Let's create a Spark context with more executors:
 import pyspark
 conf = pyspark.SparkConf()
 conf.setMaster("k8s://https://kubernetes.default.svc.cluster.local:443")
-conf.set("spark.kubernetes.container.image", "kublr/spark-py:2.4.0-hadoop-2.6")
+conf.set("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2.1")
 
 conf.set("spark.kubernetes.authenticate.caCertFile", "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt")
 conf.set("spark.kubernetes.authenticate.oauthTokenFile", "/var/run/secrets/kubernetes.io/serviceaccount/token")
