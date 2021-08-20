@@ -52,7 +52,7 @@ helm install my-pyspark-notebook charts/pyspark-notebook
 
 ```
 
---------------------------------------------------------------
+#This are from https://kublr.com/blog/running-spark-with-jupyter-notebook-hdfs-on-kubernetes/
 
 # Spark, Jupyter Notebook, And HDFS On Kubernetes
 
