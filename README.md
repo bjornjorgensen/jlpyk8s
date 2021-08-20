@@ -1,5 +1,6 @@
 This repo are based on 
 https://kublr.com/blog/running-spark-with-jupyter-notebook-hdfs-on-kubernetes/
+https://github.com/kublr/demos/tree/master/demo9-jupyter-pyspark
 https://scalingpythonml.com/2020/12/21/running-a-spark-jupyter-notebooks-in-client-mode-inside-of-a-kubernetes-cluster-on-arm.html
 
 ```bash
