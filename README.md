@@ -25,7 +25,7 @@ pwd
 
 
 
-cp PyDockerfile spark/
+cp PyDockerfile ${SPARK_HOME}/
 
 
 
@@ -40,8 +40,8 @@ docker push bjornjorgensen/spark-notebook:spark-3.1.2-hadoop-3.2
 spark-3.1.2-hadoop-3.2: digest
 
 
-cp Dockerfile.driver spark/
-cp pysetup.sh spark/bin/
+cp Dockerfile.driver ${SPARK_HOME}/
+cp pysetup.sh ${SPARK_HOME}/bin/
 
 
 ./bin/docker-image-tool.sh  -r bjornjorgensen -t v3.2.1 -b java_image_tag=11-jre-slim -p Dockerfile.driver build
