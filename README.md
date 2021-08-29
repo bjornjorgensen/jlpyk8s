@@ -184,8 +184,9 @@ sc = spark.sparkContext
   
   We well also get a nice gui of core and mem usage. 
   
+ ![pv nfs](screenshots/deshboard.png)
   
- ![pv nfs](screenshots/screenshots/deshboard.png)
+
   
   
   
