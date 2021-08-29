@@ -84,14 +84,113 @@ Make the pvc many read write.
 ![pv nfs](screenshots/pvc_nfs_many_read_write.png)
 
   
+##Ingress
+
+Create a ingress for the notebook 
+I use the duckdns.org, for free dns server.
   
- ![pv nfs](screenshots/ingress_my.pyspark.png) 
+![pv nfs](screenshots/ingress_my.pyspark.png) 
+  
+  
+Rancher and K8S use nqinx that have a limit one 1 mb for web trafik. So go to labels and annotations and add 
   
 
+nginx.ingress.kubernetes.io/proxy-body-size 300m
+
+  or
+ingress.kubernetes.io/proxy-body-size 64m
+
+a linke to the config 
+https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1230  
+  
+![pv nfs](screenshots/ingress_nginx.png)
 
 
+  
+  
+You can also add a nother ingress the sparkui 
+THIS IS NOT SAFE! 
+  
+![pv nfs](screenshots/ingress_sparkui.png)
+  
+##Deployments
+  I the deployments you must add a pcv for ∕home/jovian. This is a many read write pvc.
+  
+ ![pv nfs](screenshots/deployments_pvc.png) 
 
-
+  Also add a pcv to the pvc with nfs that we created. Mount in to /opt/spark/work-dir
+  
+  
+  This is where you can choose docker builds to run. 
+  Pick one you like from https://hub.docker.com/repository/docker/bjornjorgensen/spark-notebook or your own docker builds.
+  
+  ![pv nfs](screenshots/deployments_imgage.png)
+  
+  
+  Now you can open the url that we created in ingress. ea jlab.MYDNS.SOMETHING. 
+  You find the tolken by Pods -> the running "my notebook" pod -> click the tree ... and "view logs" 
+  
+  Past the tolken and set a password. After this I like to change the url to lab for the new jupyterlab.
+  ea. jlab.jlab.MYDNS.SOMETHING/lab
+  
+  
+  
+  In jupyterlab we start the spark cluster on k8s
+  
+  
+  ```python
+  from pyspark.sql import SparkSession
+spark = SparkSession.builder \
+    .master("k8s://https://kubernetes.default.svc.cluster.local:443") \
+    .config("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2-290821") \
+    .config("spark.kubernetes.authenticate.caCertFile", "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt") \
+    .config("spark.kubernetes.authenticate.oauthTokenFile", "/var/run/secrets/kubernetes.io/serviceaccount/token") \
+    .config("spark.kubernetes.authenticate.driver.serviceAccountName", "my-pyspark-notebook") \
+    .config("spark.executor.instances", "10") \
+    .config("spark.driver.host", "my-pyspark-notebook-spark-driver.default.svc.cluster.local") \
+    .config("spark.driver.port", "29413") \
+    .config("spark.kubernetes.driver.volumes.persistentVolumeClaim.nfs100.options.claimName", "nfs100") \
+    .config("spark.kubernetes.driver.volumes.persistentVolumeClaim.nfs100.mount.path", "/opt/spark/work-dir") \
+    .config("spark.kubernetes.executor.volumes.persistentVolumeClaim.nfs100.options.claimName", "nfs100") \
+    .config("spark.kubernetes.executor.volumes.persistentVolumeClaim.nfs100.mount.path", "/opt/spark/work-dir") \
+    .config("spark.kubernetes.driver.volumes.persistentVolumeClaim.nfs100.mount.readOnly", "False") \
+    .config("spark.kubernetes.executor.volumes.persistentVolumeClaim.nfs100.mount.readOnly", "False") \
+    .appName("myApp") \
+    .config("spark.sql.repl.eagerEval.enabled", "True") \
+    .config("spark.driver.memory", "4g") \
+    .config("spark.executor.memory", "4g") \
+    .getOrCreate()
+sc = spark.sparkContext
+  ```
+  config("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2-290821")
+  This is the same version tag as the one we have deployd. 
+  ea. bjornjorgensen/spark-notebook:spark-3.2-290821 and bjornjorgensen/spark-py:v3.2-290821
+  
+  config("spark.executor.instances", "10") 
+  This are the number of executors that you well have. Use max 85 % of what you have in total. 
+  
+  config("spark.kubernetes.driver.volumes.persistentVolumeClaim.nfs100.options.claimName", "nfs100")
+  The nfs100 is the name to the pvc. 
+  
+  More on config https://spark.apache.org/docs/latest/running-on-kubernetes.html
+  
+  
+  
+  When you run this cell you in Rancher cluster dashboard that k8s are downloading images.
+  
+  ![pv nfs](screenshots/events_starts.png)
+  
+  
+  
+  We well also get a nice gui of core and mem usage. 
+  
+  
+  ![pv nfs](screenshots/screenshots/deshboard.png)
+  
+  
+  
+  
+  
 #This is from https://kublr.com/blog/running-spark-with-jupyter-notebook-hdfs-on-kubernetes/
 
 # Spark, Jupyter Notebook, And HDFS On Kubernetes
