@@ -30,24 +30,25 @@ cp PyDockerfile ${SPARK_HOME}/
 
 
 
-docker build -t bjornjorgensen/spark-notebook:spark-3.1.2-hadoop-3.2 -f PyDockerfile .
+docker build -t bjornjorgensen/spark-notebook:spark-3.2-290821 -f PyDockerfile .
 
 
 
-docker push bjornjorgensen/spark-notebook:spark-3.1.2-hadoop-3.2
+docker push bjornjorgensen/spark-notebook:spark-3.2-290821
 
 
-spark-3.1.2-hadoop-3.2: digest
+
 
 
 cp Dockerfile.driver ${SPARK_HOME}/
 cp pysetup.sh ${SPARK_HOME}/bin/
 
 
-./bin/docker-image-tool.sh  -r bjornjorgensen -t v3.2.1 -b java_image_tag=11-jre-slim -p Dockerfile.driver build
+./bin/docker-image-tool.sh  -r bjornjorgensen -t v3.2-290821 -b java_image_tag=11-jre-slim -p Dockerfile.driver build
 
-docker push bjornjorgensen/spark-py:v3.2.1
-v3.2.1: digest
+
+docker push bjornjorgensen/spark-py:v3.2-290821
+
 
 helm install my-pyspark-notebook charts/pyspark-notebook
 
