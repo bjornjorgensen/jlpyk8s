@@ -1,5 +1,6 @@
 #https://hub.docker.com/r/jupyterhub/k8s-singleuser-sample/tags?page=1&ordering=last_updated
-FROM jupyterhub/k8s-singleuser-sample:1.1.2-n007.h82352314
+FROM jupyterhub/k8s-singleuser-sample:1.1.3-n003.h34c6d851
+
 
 # Switch to root to install stuff
 USER root
@@ -180,6 +181,12 @@ ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3/0.11.1/iceb
 #end::iceberg[]
 
 RUN chmod a+rx ${SPARK_HOME}/jars/*.jar 
+
+
+#https://github.com/itsjafer/jupyterlab-sparkmonitor
+#Dident mange to get the right url for this.
+#RUN pip install jupyterlab-sparkmonitor
+
 
 
 # Switch to the user back to a non-root user that will actually do the running
