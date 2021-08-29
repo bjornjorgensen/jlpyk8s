@@ -61,9 +61,32 @@ helm install my-pyspark-notebook charts/pyspark-notebook
 I use K8S and Rancher for K8S develop, with Longhorn for storage. 
 I also use NFS as storage for geting files in and out k8s easy.
 
+This is the way that I setup the spark on k8s
+Create a PV to a NFS share. It fill in the mont path and ip. Give it a name that you rember ea nfs<size>
+
 ![pv nfs](screenshots/pv_nfs.png)
 
+  
+Make it many read write
+  
+![pv nfs](screenshots/pv_many_read_write.png)
 
+
+  
+Create a PVC and bond it to the PV with NFS  
+Her I use the same name as the pv.
+  
+![pv nfs](screenshots/pvc_nfs.png)
+
+
+Make the pvc many read write.
+  
+![pv nfs](screenshots/pvc_nfs_many_read_write.png)
+
+  
+  
+ ![pv nfs](screenshots/ingress_my.pyspark.png) 
+  
 
 
 
