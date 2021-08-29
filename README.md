@@ -52,9 +52,24 @@ docker push bjornjorgensen/spark-py:v3.2-290821
 
 helm install my-pyspark-notebook charts/pyspark-notebook
 
+
+
+
+
 ```
 
-#This are from https://kublr.com/blog/running-spark-with-jupyter-notebook-hdfs-on-kubernetes/
+I use K8S and Rancher for K8S develop, with Longhorn for storage. 
+I also use NFS as storage for geting files in and out k8s easy.
+
+![pv nfs](screenshots/pv_nfs.png)
+
+
+
+
+
+
+
+#This is from https://kublr.com/blog/running-spark-with-jupyter-notebook-hdfs-on-kubernetes/
 
 # Spark, Jupyter Notebook, And HDFS On Kubernetes
 
