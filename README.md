@@ -1,4 +1,4 @@
-This repo are based on 
+This repo is based on 
 https://kublr.com/blog/running-spark-with-jupyter-notebook-hdfs-on-kubernetes/
 https://github.com/kublr/demos/tree/master/demo9-jupyter-pyspark
 https://scalingpythonml.com/2020/12/21/running-a-spark-jupyter-notebooks-in-client-mode-inside-of-a-kubernetes-cluster-on-arm.html
@@ -59,10 +59,9 @@ helm install my-pyspark-notebook charts/pyspark-notebook
 ```
 
 I use K8S and Rancher for K8S develop, with Longhorn for storage. 
-I also use NFS as storage for geting files in and out k8s easy.
+I also use NFS as storage for getting files in and out k8s easy.
 
-This is the way that I setup the spark on k8s
-Create a PV to a NFS share. It fill in the mont path and ip. Give it a name that you rember ea nfs<size>
+This is the way that I setup spark on k8s. Create a PV to a NFS share. Fill in the mount path and ip. Give it a name that you remember ea. nfs<size>
 
 ![pv nfs](screenshots/pv_nfs.png)
 
@@ -86,13 +85,13 @@ Make the pvc many read write.
   
 ##Ingress
 
-Create a ingress for the notebook 
+Create one ingress for the notebook 
 I use the duckdns.org, for free dns server.
   
 ![pv nfs](screenshots/ingress_my.pyspark.png) 
   
   
-Rancher and K8S use nqinx that have a limit one 1 mb for web trafik. So go to labels and annotations and add 
+Rancher and K8S use nqinx that have a limit one 1 mb for web traffic. So go to labels and annotations and add 
   
 
 nginx.ingress.kubernetes.io/proxy-body-size 300m
@@ -100,7 +99,7 @@ nginx.ingress.kubernetes.io/proxy-body-size 300m
   or
 ingress.kubernetes.io/proxy-body-size 64m
 
-a linke to the config 
+a link to the config 
 https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1230  
   
 ![pv nfs](screenshots/ingress_nginx.png)
@@ -108,7 +107,7 @@ https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1230
 
   
   
-You can also add a nother ingress the sparkui 
+You can also add another ingress to sparkui 
 THIS IS NOT SAFE! 
   
 ![pv nfs](screenshots/ingress_sparkui.png)
@@ -182,7 +181,7 @@ sc = spark.sparkContext
   
   
   
-  We well also get a nice gui of core and mem usage. 
+  We will also get a nice gui of core and mem usages. 
   
  ![pv nfs](screenshots/deshboard.png)
   
