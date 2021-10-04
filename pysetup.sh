@@ -5,7 +5,7 @@ export arch=$(uname -m)
 if [ "$arch" == "aarm64" ]; then
   arch="arm64";
 fi
-wget --quiet https://github.com/conda-forge/miniforge/releases/download/4.10.3-5/Miniforge3-4.10.3-5-Linux-${arch}.sh -O ~/miniforge.sh
+wget --quiet https://github.com/conda-forge/miniforge/releases/download/4.10.3-6/Miniforge3-4.10.3-6-Linux-${arch}.sh -O ~/miniforge.sh
 chmod a+x ~/miniforge.sh
 ~/miniforge.sh -b -p /opt/conda
 /opt/conda/bin/conda clean -tipsy
