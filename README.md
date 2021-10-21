@@ -4,16 +4,16 @@ https://github.com/kublr/demos/tree/master/demo9-jupyter-pyspark
 https://scalingpythonml.com/2020/12/21/running-a-spark-jupyter-notebooks-in-client-mode-inside-of-a-kubernetes-cluster-on-arm.html
 
 ```bash
-wget https://apache.uib.no/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
+wget https://apache.uib.no/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz
 
-tar -xzvf spark-3.1.2-bin-hadoop3.2.tgz
+tar -xzvf spark-3.2.0-bin-hadoop3.2.tgz
 
-rm spark-3.1.2-bin-hadoop3.2.tgz
+rm spark-3.2.0-bin-hadoop3.2.tgz
 
-mv spark-3.1.2-bin-hadoop3.2 spark
+mv spark-3.2.0-bin-hadoop3.2 spark
 
 # Set SPARK_HOME to extracted directory
-SPARK_HOME=`pwd`/spark-3.1.2-bin-hadoop3.2
+SPARK_HOME=`pwd`/spark-3.2.0-bin-hadoop3.2
 
 
 #test that you have the right spark home folder
@@ -30,11 +30,11 @@ cp PyDockerfile ${SPARK_HOME}/
 
 
 
-docker build -t bjornjorgensen/spark-notebook:spark-3.2-290821 -f PyDockerfile .
+docker build -t bjornjorgensen/spark-notebook:spark-3.2 -f PyDockerfile .
 
 
 
-docker push bjornjorgensen/spark-notebook:spark-3.2-290821
+docker push bjornjorgensen/spark-notebook:spark-3.2
 
 
 
@@ -44,10 +44,10 @@ cp Dockerfile.driver ${SPARK_HOME}/
 cp pysetup.sh ${SPARK_HOME}/bin/
 
 
-./bin/docker-image-tool.sh  -r bjornjorgensen -t v3.2-290821 -b java_image_tag=11-jre-slim -p Dockerfile.driver build
+./bin/docker-image-tool.sh  -r bjornjorgensen -t v3.2 -b java_image_tag=11-jre-slim -p Dockerfile.driver build
 
 
-docker push bjornjorgensen/spark-py:v3.2-290821
+docker push bjornjorgensen/spark-py:v3.2
 
 
 helm install my-pyspark-notebook charts/pyspark-notebook
