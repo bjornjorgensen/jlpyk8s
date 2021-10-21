@@ -141,7 +141,7 @@ THIS IS NOT SAFE!
   from pyspark.sql import SparkSession
 spark = SparkSession.builder \
     .master("k8s://https://kubernetes.default.svc.cluster.local:443") \
-    .config("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2-290821") \
+    .config("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2") \
     .config("spark.kubernetes.authenticate.caCertFile", "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt") \
     .config("spark.kubernetes.authenticate.oauthTokenFile", "/var/run/secrets/kubernetes.io/serviceaccount/token") \
     .config("spark.kubernetes.authenticate.driver.serviceAccountName", "my-pyspark-notebook") \
@@ -161,9 +161,9 @@ spark = SparkSession.builder \
     .getOrCreate()
 sc = spark.sparkContext
   ```
-  config("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2-290821")
+  config("spark.kubernetes.container.image", "bjornjorgensen/spark-py:v3.2")
   This is the same version tag as the one we have deployd. 
-  ea. bjornjorgensen/spark-notebook:spark-3.2-290821 and bjornjorgensen/spark-py:v3.2-290821
+  ea. bjornjorgensen/spark-notebook:spark-3.2 and bjornjorgensen/spark-py:v3.2
   
   config("spark.executor.instances", "10") 
   This are the number of executors that you well have. Use max 85 % of what you have in total. 
