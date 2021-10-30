@@ -44,7 +44,7 @@ RUN conda install -c conda-forge --yes mamba && \
     (mamba install --yes pyarrow ||  pip install -vvv pyarrow)
 
 # Add S3A support
-ADD https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.92/aws-java-sdk-bundle-1.12.92.jar ${SPARK_HOME}/jars/
+ADD https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.99/aws-java-sdk-bundle-1.12.99.jar ${SPARK_HOME}/jars/
 ADD https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.1/hadoop-aws-3.3.1.jar ${SPARK_HOME}/jars/
 
 #tag::iceberg[]
