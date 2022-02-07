@@ -1,5 +1,5 @@
 #https://hub.docker.com/r/jupyterhub/k8s-singleuser-sample/tags?page=1&ordering=last_updated
-FROM jupyterhub/k8s-singleuser-sample:1.1.3-n269.hf706eaa2
+FROM jupyterhub/k8s-singleuser-sample:1.1.3-n288.h04d55908
 
 
 # Switch to root to install stuff
@@ -174,9 +174,9 @@ ADD https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-bundle/1.12.105/aw
 ADD https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.1/hadoop-aws-3.3.1.jar ${SPARK_HOME}/jars/
 
 #tag::iceberg[]
-ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3-runtime/0.12.0/iceberg-spark3-runtime-0.12.0.jar ${SPARK_HOME}/jars/
-ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3-extensions/0.12.0/iceberg-spark3-extensions-0.12.0.jar ${SPARK_HOME}/jars/
-ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3/0.12.0/iceberg-spark3-0.12.0.jar ${SPARK_HOME}/jars/
+#ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3-runtime/0.12.0/iceberg-spark3-runtime-0.12.0.jar ${SPARK_HOME}/jars/
+#ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3-extensions/0.12.0/iceberg-spark3-extensions-0.12.0.jar ${SPARK_HOME}/jars/
+#ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark3/0.12.0/iceberg-spark3-0.12.0.jar ${SPARK_HOME}/jars/
 #ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-parquet/0.11.0/iceberg-parquet-0.11.0.jar ${SPARK_HOME}/jars/
 #ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-core/0.11.0/iceberg-core-0.11.0.jar ${SPARK_HOME}/jars/
 #ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-arrow/0.11.0/iceberg-arrow-0.11.0.jar ${SPARK_HOME}/jars/
