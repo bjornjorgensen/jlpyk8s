@@ -25,7 +25,7 @@ RUN set -eux; \
     conda install -c conda-forge --yes mamba && \
     mamba install --yes python && \
     pip install --upgrade pip setuptools && \
-    mamba install --yes pandas cytoolz numba lz4 scikit-build python-blosc && \
+    mamba install --yes pandas cytoolz numba lz4 scikit-build python-blosc jupyterlab-git && \
     (mamba install --yes pyarrow ||  pip install -vvv pyarrow) && \
     apt-get clean && \
     rm -rf /var/cache/apt/* && \
