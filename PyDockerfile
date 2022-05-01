@@ -1,5 +1,5 @@
 #https://hub.docker.com/r/jupyterhub/k8s-singleuser-sample/tags?page=1&ordering=last_updated
-FROM jupyterhub/k8s-singleuser-sample:1.1.3-n416.he6ccbb10
+FROM jupyterhub/k8s-singleuser-sample:1.1.3-n438.hd332a691
 
 
 # Switch to root to install stuff
